@@ -1,55 +1,42 @@
 import { Container, Grid } from "../components/Layout";
 import styled from "styled-components";
 import color from "../assets/colors";
-
-const StatusBlock = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: ${color.white.default};
-  width: 100%;
-  height: 100px;
-  margin-bottom: 24px;
-  border-radius: 8px;
-  @media (max-width: 450px) {
-    border-radius: 0;
-  }
-`;
-
-const InfoBlock = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: ${color.white.default};
-  width: 100%;
-  height: 400px;
-  border-radius: 8px;
-  @media (max-width: 450px) {
-    border-radius: 0;
-  }
-`;
+import Status from "../components/Status";
+import Info from "../components/Info";
+import Action from "../components/Action";
+import Header from "../components/Header";
+import Profile from "../components/Profile";
 
 const InteractBlock = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${color.white.default};
   width: 100%;
-  height: 524px;
+  height: 100%;
   border-radius: 8px;
   @media (max-width: 450px) {
     border-radius: 0;
+    margin-left: 0;
   }
 `;
 
 const Home = () => {
   return (
-    <Grid>
-      <Container start={3} span={3}>
-        <StatusBlock></StatusBlock>
-        <InfoBlock></InfoBlock>
-      </Container>
-      <Container start={6} span={5}>
-        <InteractBlock></InteractBlock>
-      </Container>
-    </Grid>
+    <>
+      <Header />
+      <Grid>
+        <Container start={3} span={3}>
+          <Profile />
+          <Status status="online" />
+          <Info />
+        </Container>
+        <Container start={6} span={5}>
+          <InteractBlock>
+            <Action />
+          </InteractBlock>
+        </Container>
+      </Grid>
+    </>
   );
 };
 
