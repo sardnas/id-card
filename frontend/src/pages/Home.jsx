@@ -26,8 +26,8 @@ const Home = () => {
       <Header />
       <Grid>
         <Container start={3} span={3}>
-          <Profile />
           <Status status="online" />
+          <Profile />
           <Info />
         </Container>
         <Container start={6} span={5}>
