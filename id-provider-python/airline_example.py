@@ -7,13 +7,16 @@ from couchbase.cluster import Cluster
 from couchbase.options import (ClusterOptions, ClusterTimeoutOptions,
                                QueryOptions)
 import os
+import json
 
+with open("credentials.json") as f:
+    creds = json.load(f)
 
 # Update this to your cluster
-endpoint = "cb.cdex03tnodx33ccg.cloud.couchbase.com"  # A typo here will lead to strange timeout error, see https://jira.issues.couchbase.com/browse/PYCBC-1364
-username = "id-card-cluster-user"
-password = os.environ['DB_PASSWORD']
-bucket_name = "travel-sample"
+endpoint = creds["host"]
+username = creds["username"]
+password = creds["password"]
+bucket_name = creds["bucket"]
 # User Input ends here.
 
 # Connect options - authentication
@@ -25,7 +28,7 @@ options = ClusterOptions(auth)
 # when accessing Capella from a different Wide Area Network
 # or Availability Zone(e.g. your laptop).
 options.apply_profile('wan_development')
-cluster = Cluster('couchbases://{}'.format(endpoint), options)
+cluster = Cluster(endpoint, options)
 
 # Wait until the cluster is ready for use.
 cluster.wait_until_ready(timedelta(seconds=5))
