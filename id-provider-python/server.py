@@ -28,14 +28,13 @@ app.add_middleware(
 
 class EnrollReply(BaseModel):
     signed_cert: str
-    signature: str
 
 
 @app.post("/enroll")
 async def enroll(name: str, pubkey: str) -> EnrollReply:
     "Register your secure token at the ID provider. Currently not using any crypto!"
     statement = f"I verified that person '{name}' possess a secure token with pubkey '{pubkey}'"
-    return EnrollReply(signed_cert=statement, signature=str(uuid.uuid4()))
+    return EnrollReply(signed_cert=statement)
 
 
 @app.post("/revoke")
