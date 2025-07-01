@@ -23,6 +23,7 @@ const Header = styled.div`
   gap: 8px;
 `;
 const Profile = () => {
+  const personalId = localStorage.getItem("personalId");
   return (
     <ProfileBlock>
       <Header>
@@ -40,7 +41,7 @@ const Profile = () => {
         }}
       >
         <Text size="16px" color={color.white.default}>
-          <b>Name:</b> John Doe
+          <b>Name:</b> Sandra Reinecke
         </Text>
       </div>
       <div
@@ -50,17 +51,7 @@ const Profile = () => {
         }}
       >
         <Text size="16px" color={color.white.default}>
-          <b>Personal ID:</b> 19871224-1234
-        </Text>
-      </div>
-      <div
-        style={{
-          borderBottom: `1px solid ${color.white.default}`,
-          paddingBottom: "8px",
-        }}
-      >
-        <Text size="16px" color={color.white.default}>
-          <b>ID number:</b> 1234 5678 9764 3456
+          <b>Personal ID:</b> {personalId}
         </Text>
       </div>
       <div

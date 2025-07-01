@@ -15,7 +15,7 @@ const Home = () => {
           <Info />
         </Container>
         <Container start={6} span={5}>
-          <Status status="online" />
+          <Status />
           <Action />
         </Container>
       </Grid>

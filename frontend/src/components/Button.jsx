@@ -15,9 +15,9 @@ const StyledButton = styled.button`
   }
 `;
 
-const Button = ({ label = "label" }) => {
+const Button = ({ label = "label", onClick }) => {
   return (
-    <StyledButton>
+    <StyledButton onClick={onClick}>
       <Text color={color.white.default}>{label}</Text>
     </StyledButton>
   );

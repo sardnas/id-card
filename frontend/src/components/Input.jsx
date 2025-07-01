@@ -1,3 +1,4 @@
+// components/Input.jsx
 import React from "react";
 import styled from "styled-components";
 import color from "../assets/colors";
@@ -14,8 +15,22 @@ const StyledInput = styled.input`
   }
 `;
 
-const Input = ({ placeholder = "placeholder" }) => {
-  return <StyledInput type="text" placeholder={placeholder} />;
+const Input = ({
+  type = "text",
+  placeholder = "placeholder",
+  value,
+  onChange,
+  ...rest
+}) => {
+  return (
+    <StyledInput
+      type={type}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+      {...rest}
+    />
+  );
 };
 
 export default Input;

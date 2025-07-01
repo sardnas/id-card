@@ -7,7 +7,10 @@ import {
   FaIdCard,
   FaUser,
   FaSyncAlt,
+  FaShoppingCart,
+  FaBuilding,
 } from "react-icons/fa";
+import { BiSolidBank } from "react-icons/bi";
 import { MdInfo, MdWarning, MdWifiOff } from "react-icons/md";
 import { BsQrCode } from "react-icons/bs";
 
@@ -23,6 +26,9 @@ const icons = {
   user: FaUser,
   qr: BsQrCode,
   sync: FaSyncAlt,
+  shoppingCart: FaShoppingCart,
+  bankCard: BiSolidBank,
+  government: FaBuilding,
 };
 
 const Icon = ({ name, size = 24, color = "#000" }) => {
