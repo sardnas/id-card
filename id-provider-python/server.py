@@ -66,7 +66,9 @@ def setup_connection():
     # Sets a pre-configured profile called "wan_development" to help avoid latency issues
     # when accessing Capella from a different Wide Area Network
     # or Availability Zone(e.g. your laptop).
-    options.apply_profile('wan_development')
+
+    # Use LAN profile to demo cluster down
+    #options.apply_profile('wan_development')
     cluster = Cluster(endpoint, options)
 
     # Wait until the cluster is ready for use.
