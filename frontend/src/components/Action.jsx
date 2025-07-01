@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "./Button";
 import Input from "./Input";
 import color from "../assets/colors";
 import Text from "./Text";
 import Icon from "./Icon";
+import { ClipLoader } from "react-spinners";
+import Success from "./Success";
 
 const InteractBlock = styled.div`
   display: flex;
@@ -43,36 +45,61 @@ const StyledButton = styled.button`
     cursor: pointer;
   }
 `;
-//shoppingCart: FaShoppingCart,
-// bankCard: FaMoneyCheck,
-// government: FaBuilding,
+
 const Action = () => {
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const handleOnclick = async () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setSuccess(true);
+    }, 2000);
+  };
+
   return (
     <InteractBlock>
-      <Header>
-        <Icon name="idCard" color={color.blue.shade3} />
-        <Text color={color.blue.shade3} size="24px" weight="bold">
-          Use your ID-CARD
-        </Text>
-      </Header>
-      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-        <StyledButton>
-          <Icon name="shoppingCart" size={36} color={color.grey.default} />
-          <Text>Authenticate to web-store</Text>
-        </StyledButton>
-        <StyledButton>
-          <Icon name="bankCard" size={36} color={color.grey.default} />
-          <Text>Authenticate to bank</Text>
-        </StyledButton>
-        <StyledButton>
-          <Icon name="government" size={36} color={color.grey.default} />
-          <Text>Authenticate to government service</Text>
-        </StyledButton>
-        <StyledButton>
-          <Icon name="shoppingCart" size={36} color={color.grey.default} />
-          <Text>Authenticate to other web-store</Text>
-        </StyledButton>
-      </div>
+      {loading ? (
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <ClipLoader color={color.blue.default} size={48} />
+        </div>
+      ) : success ? (
+        <Success />
+      ) : (
+        <>
+          <Header>
+            <Icon name="idCard" color={color.blue.shade3} />
+            <Text color={color.blue.shade3} size="24px" weight="bold">
+              Use your ID-CARD
+            </Text>
+          </Header>
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+            <StyledButton>
+              <Icon name="shoppingCart" size={36} color={color.grey.default} />
+              <Text>Coop Online</Text>
+            </StyledButton>
+            <StyledButton onClick={handleOnclick}>
+              <Icon name="bankCard" size={36} color={color.grey.default} />
+              <Text>Favorite Bank</Text>
+            </StyledButton>
+            <StyledButton>
+              <Icon name="government" size={36} color={color.grey.default} />
+              <Text>Skatteverket</Text>
+            </StyledButton>
+            <StyledButton>
+              <Icon name="info" size={36} color={color.grey.default} />
+              <Text>CSN</Text>
+            </StyledButton>
+          </div>
+        </>
+      )}
     </InteractBlock>
   );
 };

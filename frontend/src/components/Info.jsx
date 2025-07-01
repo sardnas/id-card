@@ -34,17 +34,17 @@ const Info = () => {
       </InfoPoint>
       <InfoPoint>
         <Text color={color.black.default} size="16px">
-          Step one - do something
+          Step one - choose service to use
         </Text>
       </InfoPoint>
       <InfoPoint>
         <Text color={color.black.default} size="16px">
-          When something happens
+          Step two - authenticate yourself
         </Text>
       </InfoPoint>
       <InfoPoint>
         <Text color={color.black.default} size="16px">
-          Some text here
+          Step three - go back to service
         </Text>
       </InfoPoint>
     </InfoBlock>

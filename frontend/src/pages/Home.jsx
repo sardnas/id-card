@@ -12,7 +12,7 @@ const Home = () => {
       <Grid>
         <Container start={3} span={3}>
           <Profile />
-          <Info />
+          {/* <Info /> */}
         </Container>
         <Container start={6} span={5}>
           <Status />
