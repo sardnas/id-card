@@ -7,6 +7,7 @@ import Text from "./Text";
 import Icon from "./Icon";
 import { ClipLoader } from "react-spinners";
 import Success from "./Success";
+import { LoginBank } from "../Api";
 
 const InteractBlock = styled.div`
   display: flex;
@@ -49,8 +50,34 @@ const StyledButton = styled.button`
 const Action = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const loginBank = async () => {
+    const personalId = localStorage.getItem("personalId");
+    const pubkey = localStorage.getItem("pubkey");
+    try {
+      const response = await LoginBank(personalId, pubkey);
+      if (response.ok) {
+        const dataText = await response.text();
+        console.log("Request successful: " + dataText);
+        const data = JSON.parse(dataText); // parse JSON here
+        return data;
+      } else {
+        console.log("Request failed: " + response.status);
+        return null;
+      }
+    } catch (error) {
+      console.log("Request error: " + error.message);
+      return null;
+    }
+  };
   const handleOnclick = async () => {
     setLoading(true);
+    const data = await loginBank();
+    if (data) {
+      console.log("bank data ", data);
+    } else {
+      console.log("No bank data");
+    }
+
     setTimeout(() => {
       setLoading(false);
       setSuccess(true);

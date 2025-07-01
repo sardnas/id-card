@@ -55,8 +55,7 @@ const Start = () => {
 
     setLoading(true);
     localStorage.setItem("personalId", pin);
-
-    const data = await postPid({ name: pin });
+    const data = await postPid(pin);
     if (data && data.signed_cert) {
       localStorage.setItem("signed_cert", data.signed_cert);
       console.log("Signed certificate saved to localStorage");

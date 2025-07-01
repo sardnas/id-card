@@ -1,5 +1,5 @@
 const idProviderBasePath = "http://127.0.0.1:8000";
-const bankBasePath = "http://localhost:8080";
+const bankBasePath = "http://127.0.0.1:8001";
 
 export async function Ping() {
   return await fetch(idProviderBasePath + "/ping", {
@@ -7,10 +7,11 @@ export async function Ping() {
   });
 }
 
-export async function PostPid(name) {
-  const pubkey = crypto.getRandomValues(new Uint8Array(32)).toString();
+export async function PostPid(pin) {
+  const pubkey = crypto.getRandomValues(new Uint8Array(16)).join("");
+  localStorage.setItem("pubkey", pubkey);
   const url = new URL(idProviderBasePath + "/enroll");
-  url.searchParams.append("name", name);
+  url.searchParams.append("name", pin);
   url.searchParams.append("pubkey", pubkey);
 
   return await fetch(url.toString(), {
@@ -24,10 +25,12 @@ export async function PingPublicApi() {
   });
 }
 
-export async function SignIn(pid) {
-  return await fetch(bankBasePath + "/endpoint", {
+export async function LoginBank(cert, pubkey) {
+  const url = new URL(bankBasePath + "/login");
+  url.searchParams.append("certificate", cert);
+  url.searchParams.append("pubkey", pubkey);
+
+  return await fetch(url.toString(), {
     method: "POST",
-    body: JSON.stringify({ pid }),
-    headers: { "Content-Type": "application/json" },
   });
 }

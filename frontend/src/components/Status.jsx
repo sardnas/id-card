@@ -49,7 +49,7 @@ const StyledButton = styled.button`
 `;
 
 const Status = () => {
-  const [status, setStatus] = useState("offline");
+  const [status, setStatus] = useState("unknown");
   const [message, setMessage] = useState("Not checked yet");
 
   const handlePing = async () => {
