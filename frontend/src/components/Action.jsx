@@ -11,19 +11,13 @@ const InteractBlock = styled.div`
   width: 100%;
   height: 100%;
   border-radius: 8px;
-  padding: 16px;
   @media (max-width: 450px) {
     border-radius: 0;
     margin-left: 0;
   }
 `;
 const Action = () => {
-  return (
-    <InteractBlock>
-      <Input />
-      <Button />
-    </InteractBlock>
-  );
+  return <InteractBlock></InteractBlock>;
 };
 
 export default Action;

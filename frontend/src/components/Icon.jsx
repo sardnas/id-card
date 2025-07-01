@@ -6,8 +6,10 @@ import {
   FaWifi,
   FaIdCard,
   FaUser,
+  FaSyncAlt,
 } from "react-icons/fa";
 import { MdInfo, MdWarning, MdWifiOff } from "react-icons/md";
+import { BsQrCode } from "react-icons/bs";
 
 const icons = {
   check: FaCheckCircle,
@@ -19,6 +21,8 @@ const icons = {
   online: FaWifi,
   idCard: FaIdCard,
   user: FaUser,
+  qr: BsQrCode,
+  sync: FaSyncAlt,
 };
 
 const Icon = ({ name, size = 24, color = "#000" }) => {

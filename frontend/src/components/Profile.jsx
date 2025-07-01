@@ -7,7 +7,7 @@ import Icon from "./Icon";
 const ProfileBlock = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${color.white.default};
+  background-color: ${color.blue.shade3};
   border-radius: 8px;
   padding: 16px;
   gap: 8px;
@@ -26,17 +26,66 @@ const Profile = () => {
   return (
     <ProfileBlock>
       <Header>
-        <Icon name="user" color={color.black.default} />
-        <Text color={color.black.default} size="24px">
+        <Icon name="user" color={color.white.default} />
+        <Text color={color.white.default} size="24px">
           User Profile
         </Text>
       </Header>
-      <Text size="16px" color={color.black.default}>
-        You are signed in as <b>@username38734</b>
-      </Text>
-      <Text size="16px" color={color.blue.default}>
-        Sign out
-      </Text>
+      <div
+        style={{
+          borderTop: `1px solid ${color.white.default}`,
+          borderBottom: `1px solid ${color.white.default}`,
+          paddingBottom: "8px",
+          paddingTop: "8px",
+        }}
+      >
+        <Text size="16px" color={color.white.default}>
+          <b>Name:</b> John Doe
+        </Text>
+      </div>
+      <div
+        style={{
+          borderBottom: `1px solid ${color.white.default}`,
+          paddingBottom: "8px",
+        }}
+      >
+        <Text size="16px" color={color.white.default}>
+          <b>Personal ID:</b> 19871224-1234
+        </Text>
+      </div>
+      <div
+        style={{
+          borderBottom: `1px solid ${color.white.default}`,
+          paddingBottom: "8px",
+        }}
+      >
+        <Text size="16px" color={color.white.default}>
+          <b>ID number:</b> 1234 5678 9764 3456
+        </Text>
+      </div>
+      <div
+        style={{
+          paddingBottom: "8px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "16px",
+        }}
+      >
+        <div
+          style={{
+            paddingBottom: "8px",
+            backgroundColor: color.white.default,
+            borderRadius: "8px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "16px",
+          }}
+        >
+          <Icon name="qr" color={color.black.default} size="72px" />
+        </div>
+      </div>
     </ProfileBlock>
   );
 };

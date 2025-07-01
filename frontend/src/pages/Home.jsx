@@ -11,11 +11,11 @@ const Home = () => {
       <Header />
       <Grid>
         <Container start={3} span={3}>
-          <Status status="online" />
           <Profile />
           <Info />
         </Container>
         <Container start={6} span={5}>
+          <Status status="online" />
           <Action />
         </Container>
       </Grid>

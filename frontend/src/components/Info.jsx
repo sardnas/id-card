@@ -27,8 +27,8 @@ const Info = () => {
   return (
     <InfoBlock>
       <InfoPoint>
-        <Icon name="info" size="24px" color={color.black.default} />
-        <Text color={color.black.default} size="24px" weight="bold">
+        <Icon name="info" size="24px" color={color.blue.shade3} />
+        <Text color={color.blue.shade3} size="24px" weight="bold">
           How to use
         </Text>
       </InfoPoint>
@@ -40,21 +40,6 @@ const Info = () => {
       <InfoPoint>
         <Text color={color.black.default} size="16px">
           When something happens
-        </Text>
-      </InfoPoint>
-      <InfoPoint>
-        <Text color={color.black.default} size="16px">
-          Some text here
-        </Text>
-      </InfoPoint>
-      <InfoPoint>
-        <Text color={color.black.default} size="16px">
-          Some text here
-        </Text>
-      </InfoPoint>
-      <InfoPoint>
-        <Text color={color.black.default} size="16px">
-          Some text here
         </Text>
       </InfoPoint>
       <InfoPoint>
