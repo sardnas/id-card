@@ -1,4 +1,4 @@
-const idProviderBasePath = "http://127.0.0.1:8000/docs";
+const idProviderBasePath = "http://127.0.0.1:8000";
 const localBasePath = "http://localhost:8080";
 
 // //ping the base path to the api
@@ -8,7 +8,7 @@ const localBasePath = "http://localhost:8080";
 //   });
 // }
 export async function Ping() {
-  return await fetch(idProviderBasePath, {
+  return await fetch(idProviderBasePath + "/ping", {
     method: "GET",
   });
 }
