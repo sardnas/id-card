@@ -87,7 +87,7 @@ def database_revoke_pubkey(pubkey):
         revocation_list = []
 
     print(f"{revocation_list=}")
-    revocation_list.append(pubkey)
+    revocation_list.append({"pub-key": pubkey})
     collection.upsert("revoked-ids", revocation_list)
 
     print(f"Uploaded {revocation_list=}")
