@@ -45,6 +45,11 @@ async def revoke(pubkey: str) -> str:
     return "OK"
 
 
+@app.get("/ping")
+async def ping() -> None:
+    setup_connection()
+
+
 def setup_connection():
     with open("credentials.json") as f:
         creds = json.load(f)
@@ -73,13 +78,10 @@ def setup_connection():
     return cb.scope("id-card-sc").collection("revoked-ids")
 
 
-print("Connecting...")
-collection = setup_connection()
-print("Connected")
-
-
 def database_revoke_pubkey(pubkey):
     """Append an entry to the list in the database"""
+    collection = setup_connection()
+
     try:
         result = collection.get("revoked-ids")
         revocation_list = result.content_as[list]
