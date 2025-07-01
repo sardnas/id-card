@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import color from "./assets/colors";
 import styled, { createGlobalStyle } from "styled-components";
+import Start from "./pages/Start";
 
 const GlobalStyle = createGlobalStyle`
   html, body, #root {
@@ -17,7 +18,8 @@ const App = () => {
     <>
       <GlobalStyle />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Start />} />
       </Routes>
     </>
   );
