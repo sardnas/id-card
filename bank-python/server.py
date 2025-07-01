@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 from pydantic import BaseModel
 import uuid
 from fastapi.middleware.cors import CORSMiddleware
@@ -15,7 +15,7 @@ import couchbase.exceptions
 
 import os
 import json
-
+import time
 
 app = FastAPI()
 app.add_middleware(
@@ -30,23 +30,20 @@ class EnrollReply(BaseModel):
     signed_cert: str
 
 
-@app.post("/enroll")
-async def enroll(name: str, pubkey: str) -> EnrollReply:
-    "Register your secure token at the ID provider. Currently not using any crypto!"
-    statement = f"I verified that person '{name}' possess a secure token with pubkey '{pubkey}'"
-    return EnrollReply(signed_cert=statement)
+@app.post("/login")
+async def login(pubkey: str, certificate: str, response: Response) -> None:
+    "Login at the bank. Currently not using any crypto!"
+    collection = setup_connection()
+
+    if is_revoked(collection, pubkey):
+        response.status_code = 401  # Unauthorized
+    else:
+        log_successful_login(collection, pubkey, certificate)
 
 
-@app.post("/revoke")
-async def revoke(pubkey: str) -> str:
-    "Revoke a secure token. Currently doesn't check if the caller is allowed to."
-    database_revoke_pubkey(pubkey)
-    return "OK"
-
-
-@app.get("/ping")
-async def ping() -> None:
-    setup_connection()
+@app.post("/logout")
+async def logout() -> None:
+    return
 
 
 def setup_connection():
@@ -79,18 +76,19 @@ def setup_connection():
     return cb.scope("id-card-sc").collection("revoked-ids")
 
 
-def database_revoke_pubkey(pubkey):
-    """Append an entry to the list in the database"""
-    collection = setup_connection()
+def is_revoked(collection, pubkey):
+    result = collection.get("revoked-ids")
+    revocation_list = result.content_as[list]
+    for res in revocation_list:
+        if res["pub-key"] == pubkey:
+            return True
+    return False
 
+
+def log_successful_login(collection, pubkey, certificate):
     try:
-        result = collection.get("revoked-ids")
-        revocation_list = result.content_as[list]
+        log = collection.get("log").content_as[list]
     except couchbase.exceptions.DocumentNotFoundException:
-        revocation_list = []
-
-    print(f"{revocation_list=}")
-    revocation_list.append({"pub-key": pubkey})
-    collection.upsert("revoked-ids", revocation_list)
-
-    print(f"Uploaded {revocation_list=}")
+        log = []
+    log.append(time.ctime() + " Logged in user " + pubkey + ", certificate: " + certificate)
+    collection.upsert("log", log)
