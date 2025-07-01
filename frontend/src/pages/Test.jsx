@@ -26,7 +26,7 @@ const Test = () => {
     try {
       const response = await Ping();
       if (response.ok) {
-        const data = await response.text(); // or .json() if you expect JSON
+        const data = await response.text();
         setMessage("Ping successful: " + data);
       } else {
         setMessage("Ping failed: " + response.status);

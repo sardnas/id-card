@@ -1,15 +1,20 @@
 const idProviderBasePath = "http://127.0.0.1:8000";
-const localBasePath = "http://localhost:8080";
+const bankBasePath = "http://localhost:8080";
 
-// //ping the base path to the api
-// export async function Ping() {
-//   return await fetch(idProviderBasePath, {
-//     method: "GET",
-//   });
-// }
 export async function Ping() {
   return await fetch(idProviderBasePath + "/ping", {
     method: "GET",
+  });
+}
+
+export async function PostPid(name) {
+  const pubkey = crypto.getRandomValues(new Uint8Array(32)).toString();
+  const url = new URL(idProviderBasePath + "/enroll");
+  url.searchParams.append("name", name);
+  url.searchParams.append("pubkey", pubkey);
+
+  return await fetch(url.toString(), {
+    method: "POST",
   });
 }
 
@@ -19,20 +24,10 @@ export async function PingPublicApi() {
   });
 }
 
-// become memmber
-export async function CreateUser(username, pin) {
-  return await fetch(localBasePath + "/api/auth/signup", {
+export async function SignIn(pid) {
+  return await fetch(bankBasePath + "/endpoint", {
     method: "POST",
-    body: JSON.stringify({ username, pin }),
-    headers: { "Content-Type": "application/json" },
-  });
-}
-
-// log in
-export async function SignIn(username, pin) {
-  return await fetch(localBasePath + "/api/auth/signin", {
-    method: "POST",
-    body: JSON.stringify({ username, pin }),
+    body: JSON.stringify({ pid }),
     headers: { "Content-Type": "application/json" },
   });
 }

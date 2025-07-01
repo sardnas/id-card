@@ -7,7 +7,8 @@ import Text from "../components/Text";
 import color from "../assets/colors";
 import Input from "../components/Input";
 import Button from "../components/Button";
-import ClipLoader from "react-spinners/ClipLoader"; // ✅ Spinner
+import ClipLoader from "react-spinners/ClipLoader";
+import { PostPid } from "../Api";
 
 const RegisterBlock = styled.div`
   display: flex;
@@ -28,19 +29,45 @@ const Start = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleContinue = () => {
+  const postPid = async ({ name }) => {
+    try {
+      const response = await PostPid(name);
+      if (response.ok) {
+        const dataText = await response.text();
+        console.log("Request successful: " + dataText);
+        const data = JSON.parse(dataText); // parse JSON here
+        return data;
+      } else {
+        console.log("Request failed: " + response.status);
+        return null;
+      }
+    } catch (error) {
+      console.log("Request error: " + error.message);
+      return null;
+    }
+  };
+
+  const handleContinue = async () => {
     if (!pin) {
-      alert("Please fill in both fields");
+      alert("Please fill in fields");
       return;
     }
 
     setLoading(true);
     localStorage.setItem("personalId", pin);
-    console.log("Simulating loading and navigating...");
+
+    const data = await postPid({ name: pin });
+    if (data && data.signed_cert) {
+      localStorage.setItem("signed_cert", data.signed_cert);
+      console.log("Signed certificate saved to localStorage");
+    } else {
+      console.log("No signed certificate received");
+    }
 
     setTimeout(() => {
+      setLoading(false);
       navigate("/home");
-    }, 2000); // 2 seconds delay
+    }, 2000);
   };
 
   return (
@@ -66,12 +93,6 @@ const Start = () => {
                   value={pin}
                   onChange={(e) => setPin(e.target.value)}
                 />
-              </div>
-              <div>
-                <label>
-                  <Text>Personal code</Text>
-                </label>
-                <Input placeholder="1234" type="password" />
               </div>
               <Button label="Continue" onClick={handleContinue} />
             </RegisterBlock>
