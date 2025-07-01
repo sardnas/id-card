@@ -11,7 +11,6 @@ const RegisterBlock = styled.div`
   flex-direction: column;
   background-color: ${color.white.default};
   width: 100%;
-  height: 50px;
   border-radius: 8px;
   padding: 16px;
   @media (max-width: 450px) {
@@ -20,7 +19,7 @@ const RegisterBlock = styled.div`
   }
 `;
 
-const Start = () => {
+const Test = () => {
   const [message, setMessage] = useState("");
 
   const handlePing = async () => {
@@ -42,11 +41,14 @@ const Start = () => {
       <Header />
       <Grid>
         <Container start={4} span={6}>
-          <RegisterBlock></RegisterBlock>
+          <RegisterBlock>
+            <button onClick={handlePing}>Ping</button>
+            {message && <Text>{message}</Text>}
+          </RegisterBlock>
         </Container>
       </Grid>
     </>
   );
 };
 
-export default Start;
+export default Test;

@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import color from "./assets/colors";
 import styled, { createGlobalStyle } from "styled-components";
 import Start from "./pages/Start";
+import Test from "./pages/Test";
 
 const GlobalStyle = createGlobalStyle`
   html, body, #root {
@@ -20,6 +21,7 @@ const App = () => {
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/" element={<Start />} />
+        <Route path="/test" element={<Test />} />
       </Routes>
     </>
   );
